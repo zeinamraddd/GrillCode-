@@ -52,7 +52,6 @@
     "serialize-javascript": "^7.0.6"
   },
   "dependencies": {
-    "@google/genai": "^2.23.0",
-    "openai": "^7.18.0"
+    "@google/genai": "^2.23.0"
   }
 }

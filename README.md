@@ -18,7 +18,7 @@ GrillCode is an interactive VS Code extension that roasts your code while turnin
 1. GrillCode detects changes in the active code file.
 2. It waits until the developer stops typing for three seconds.
 3. The current code is sent to the Gemini API for analysis.
-4. GrillCode displays a concise roast and an interview-style question as a VS Code notification.
+4. GrillCode displays a concise roast or an interview-style question as a VS Code notification.
 
 ## Example
 
@@ -56,8 +56,6 @@ GrillCode is currently under active development. Planned improvements include:
 * Prevention of outdated responses while the user continues typing
 * Configurable feedback delay
 * Multiple roast intensity levels
-* Commands to enable or disable automatic feedback
-* Improved support for different programming languages
 
 ## Author
 
