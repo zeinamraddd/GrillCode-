@@ -5,17 +5,20 @@ let typingTimer: NodeJS.Timeout | undefined;
 let editRevision = 0;
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('🔥 GrillCode ACTIVATED');
+    console.log('GrillCode ACTIVATED');
 
     const changeListener = vscode.workspace.onDidChangeTextDocument((event) => {
         const editor = vscode.window.activeTextEditor;
 
-        if (!editor || event.document !== editor.document ||
-            event.contentChanges.length === 0) {
+        if (
+            !editor ||
+            event.document !== editor.document ||
+            event.contentChanges.length === 0
+        ) {
             return;
         }
 
-        const revision = ++editRevision;
+        const currentRevision = ++editRevision;
         const document = event.document;
 
         if (typingTimer) {
@@ -24,28 +27,27 @@ export function activate(context: vscode.ExtensionContext) {
 
         typingTimer = setTimeout(async () => {
             const code = document.getText();
-            const version = document.version;
+            const documentVersion = document.version;
 
             if (!code.trim()) {
                 return;
             }
 
-            // Has the user edited this file or switched files since this request?
-            const isStillCurrent = () =>
-                revision === editRevision &&
-                document.version === version &&
+            const codeIsStillCurrent = () =>
+                currentRevision === editRevision &&
+                document.version === documentVersion &&
                 vscode.window.activeTextEditor?.document === document;
 
             try {
                 const roast = await generateAIRoast(code);
 
-                if (isStillCurrent()) {
+                if (codeIsStillCurrent()) {
                     vscode.window.showInformationMessage(roast);
                 }
             } catch (error) {
                 console.error('AI roast failed:', error);
 
-                if (isStillCurrent()) {
+                if (codeIsStillCurrent()) {
                     vscode.window.showInformationMessage(generateRoast(code));
                 }
             }
@@ -54,6 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(changeListener);
 }
+
 
 export function deactivate() {
     if (typingTimer) {
