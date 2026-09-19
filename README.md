@@ -1,71 +1,64 @@
-# grill-code README
+# GrillCode
 
-This is the README for your extension "grill-code". After writing up a brief description, we recommend including the following sections.
+GrillCode is an interactive VS Code extension that roasts your code while turning everyday programming into technical interview practice. It analyzes your work using the Gemini API and provides short, witty, and constructive feedback followed by an interview-style question.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* Gemini-powered code analysis
+* Interactive feedback inside VS Code
+* Professional and humorous code roasts
+* Technical interview-style questions
+* Automatic analysis after you stop typing
+* Reviews readability, possible bugs, architecture, and coding practices
+* Local fallback feedback if the AI request fails
+* API key stored safely in an environment variable
 
-For example if there is an image subfolder under your extension project workspace:
+## How It Works
 
-\!\[feature X\]\(images/feature-x.png\)
+1. GrillCode detects changes in the active code file.
+2. It waits until the developer stops typing for three seconds.
+3. The current code is sent to the Gemini API for analysis.
+4. GrillCode displays a concise roast and an interview-style question as a VS Code notification.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Example
 
-## Requirements
+Given this code:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+```javascript
+function subtract(a, b) {
+    return a + b;
+}
+```
 
-## Extension Settings
+GrillCode may respond:
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+> I love the optimism of naming a function `subtract` while returning the sum of `a` and `b`. How would you test this function to ensure its implementation matches its intended behavior?
 
-For example:
+## Technologies Used
 
-This extension contributes the following settings:
+* TypeScript
+* Visual Studio Code Extension API
+* Google Gemini API
+* Node.js
+* esbuild
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Privacy Notice
 
-## Known Issues
+GrillCode sends a portion of the active file to the Gemini API for analysis. Avoid testing it with private, confidential, or sensitive source code.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+The Gemini API key is not included in this repository. Every user must provide their own key through the `GEMINI_API_KEY` environment variable.
 
-## Release Notes
+## Project Status
 
-Users appreciate release notes as you update your extension.
+GrillCode is currently under active development. Planned improvements include:
 
-### 1.0.0
+* A dedicated feedback panel
+* Prevention of outdated responses while the user continues typing
+* Configurable feedback delay
+* Multiple roast intensity levels
+* Commands to enable or disable automatic feedback
+* Improved support for different programming languages
 
-Initial release of ...
+## Author
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Created by [Zeina Mrad](https://github.com/zeinamraddd).
