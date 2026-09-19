@@ -16,8 +16,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "grill-code.helloWorld",
-        "title": "Hello World"
+        "command": "grill-code.toggle",
+        "title": "GrillCode: Enable/Disable Auto Roast"
       }
     ]
   },

@@ -5,11 +5,33 @@ let typingTimer: NodeJS.Timeout | undefined;
 let editRevision = 0;
 
 export function activate(context: vscode.ExtensionContext) {
+    let grillCodeEnabled = context.globalState.get<boolean>(
+    'grillCode.enabled',
+    true
+);
+
+const toggleCommand = vscode.commands.registerCommand(
+    'grill-code.toggle',
+    async () => {
+        grillCodeEnabled = !grillCodeEnabled;
+
+        await context.globalState.update(
+            'grillCode.enabled',
+            grillCodeEnabled
+        );
+
+        vscode.window.showInformationMessage(
+            `GrillCode is now ${grillCodeEnabled ? 'enabled' : 'disabled'}.`
+        );
+    }
+);
     console.log('GrillCode ACTIVATED');
 
     const changeListener = vscode.workspace.onDidChangeTextDocument((event) => {
         const editor = vscode.window.activeTextEditor;
-
+        if (!grillCodeEnabled) {
+                return;
+            }
         if (
             !editor ||
             event.document !== editor.document ||
@@ -54,7 +76,7 @@ export function activate(context: vscode.ExtensionContext) {
         }, 3000);
     });
 
-    context.subscriptions.push(changeListener);
+    context.subscriptions.push(changeListener, toggleCommand);
 }
 
 
